@@ -6,10 +6,12 @@ import "./Header.sass";
 import UserParams from "./UserParams/UserParams";
 import { motion } from "framer-motion";
 import SearchBar from "./SearchBar/SearchBar";
+import Input from "../../../utilsComponents/Input/Input";
 
 const Header = () => {
   const { visibleNav } = useHideNav();
   const [hiderOn, setHideNavbar] = useState(false);
+  const [data, setData] = useState([]);
 
   const showNavbar = () => {
     let navbar = document.getElementById("navbar");
@@ -21,6 +23,21 @@ const Header = () => {
       localStorage.setItem("hide_nav_state", "normal");
     }
     setHideNavbar(true);
+  };
+
+  /**
+   *
+   * @param {Array} data
+   * @returns
+   */
+  const handleData = (data) => {
+    let dataFront = [];
+    // data = [data.shift()];
+    for (let i = 0; i < data.length; i++) {
+      dataFront.push(<div className="row_result_oo"> {i} </div>);
+    }
+    console.log(data);
+    return dataFront;
   };
 
   const hideNavbar = () => {
@@ -63,8 +80,7 @@ const Header = () => {
         )}
         <Indexation />
       </div>
-
-      <SearchBar />
+      <SearchBar dataFetched={data} handleData={handleData} setDataFetched={setData} urlToFetch={"test"} />
       <div className="params">
         <UserParams />
       </div>

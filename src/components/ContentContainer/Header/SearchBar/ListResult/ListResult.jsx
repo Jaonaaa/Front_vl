@@ -24,11 +24,11 @@ const ListResult = ({ data = [], loading = false, closer = () => {} }) => {
                   className="row"
                   key={index}
                   onClick={async () => {
-                    await rel();
-                    closer();
+                    // await rel();
+                    // closer();
                   }}
                 >
-                  {index + 1}
+                  {!React.isValidElement(d) ? "Object error " + index : d}
                 </div>
               ))}
             </div>

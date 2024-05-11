@@ -1,0 +1,85 @@
+.card_
+    display: flex
+    flex-direction: column
+    width: 22rem
+    height: 28rem
+    overflow: hidden
+    border-radius: 0.5rem
+    transition: all 0.2s ease-in-out
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px
+    &:hover
+        box-shadow: rgba(0, 0, 0, 0.246) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px
+        .img_card
+            img
+                transform: scale(1.1)
+    .img_card
+        width: 100%
+        background: #595959
+        height: 20rem
+        cursor: pointer
+        max-height: 23rem
+        overflow: hidden
+        img
+            transform-origin: center
+            width: 100%
+            height: 100%
+            object-fit: cover
+            border-radius: 0.3rem
+            transition: all 0.2s ease-in-out
+
+    .card_details
+        display: flex
+        min-height: rem
+        flex-direction: column
+        justify-content: space-around
+        align-items: center
+        padding: 0.7rem 0.7rem 0.8rem 0.7rem
+        .top
+            display: flex
+            width: 100%
+            margin-top: 0.2rem
+            margin-bottom: 0.7rem
+            align-items: center
+            justify-content: space-between
+            .title
+                font-size: 1.05rem
+                font-family: "Poppins_B"
+            .right_text
+                font-size: 1.2rem
+                margin-right: 0.6rem
+                font-family: "Sora_SM"
+                font-weight: bolder
+
+        .content
+            display: flex
+            width: 100%
+            align-items: flex-start
+            margin-bottom: 0.2rem
+            .text
+                font-size: 0.77rem
+                max-width: 100%
+                display: -webkit-box
+                text-overflow: ellipsis
+                -webkit-line-clamp: 3
+                -webkit-box-orient: vertical
+                overflow: hidden
+                margin-block: 0
+        .bottom
+            display: flex
+            align-items: center
+            width: 100%
+            justify-content: flex-start
+            gap: 0.3rem
+            margin-top: 0.5rem
+            button
+                padding: 0.7rem 2rem
+                border-radius: 0.5rem
+                max-width: 50%
+                width: fit-content
+
+                .text
+                    font-size: 0.75rem
+            .btn-black
+                background: #000
+.bigger
+    height: 29rem

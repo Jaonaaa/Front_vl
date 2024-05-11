@@ -1,7 +1,8 @@
 import React from "react";
+// import { motion } from "framer-motion";
 import "./HorizContainer.sass";
 
-const HorizContainer = ({ children, title, className }) => {
+const HorizContainer = ({ children, title, className = "" }) => {
   return (
     <div className={`horiz_container ${className}`}>
       <div className="title_container"> {title}</div>

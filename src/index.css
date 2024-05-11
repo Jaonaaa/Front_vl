@@ -43,8 +43,8 @@
 .light_theme {
   --primary: #674dee;
   --primary-hovered: #4530ae;
-  --secondary: #34a623;
-  --secondary-hovered: rgb(18, 99, 19);
+  --secondary: #f97777;
+  --secondary-hovered: #c44e4e;
   --box-shadow-color: #f2f2f2;
   --bg-color: #fff;
   --bg-color-body: #f4f4f4;
@@ -117,15 +117,19 @@ a {
 }
 
 button {
-  background: transparent;
-  border-radius: 0.2rem;
-  padding: 0.55rem 1rem;
+  background: var(--primary);
+  border-radius: 0.3rem;
+  color: #fff;
+  padding: 0.75rem 1rem;
   cursor: pointer;
   font-family: "Sora_R";
   transition: all 0.2s ease-in-out;
-  border: 1px solid var(--text-color);
+  /* border: 1px solid var(--text-color); */
+  border: none;
 }
 
 button:hover {
-  transform: scale(1.03);
+  transform: scale(0.98);
+  background: var(--primary-hovered);
+
 }

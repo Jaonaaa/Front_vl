@@ -4,9 +4,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { searchBarVariant } from "./variants";
 import Hider from "../../../../utilsComponents/Hider/Hider";
 import ListResult from "./ListResult/ListResult";
+import { alaivoGet } from "../../../../utils/Alaivo";
 import "./SearchBar.sass";
 
-const SearchBar = () => {
+const SearchBar = ({
+  urlToFetch,
+  setOnSend = () => {},
+  handleData = () => {
+    return [];
+  },
+  dataFetched,
+  setDataFetched = () => {},
+}) => {
   const [searchText, setSearchText] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [fetching, setFetching] = useState(false);
@@ -27,12 +36,20 @@ const SearchBar = () => {
     setData([]);
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     if (e) e.preventDefault();
     setFetching(true);
-    setTimeout(() => {
-      setData([...Array(Math.round(Math.random() * 30))]);
+    setOnSend(true);
+    setTimeout(async () => {
+      let res = await alaivoGet(urlToFetch, null, false).catch((err) => {
+        setFetching(false);
+        setOnSend(false);
+      });
+      setDataFetched(res.data);
+      //setData([...Array(Math.round(Math.random() * 30))]);
+      setData(handleData(dataFetched));
       setFetching(false);
+      setOnSend(false);
     }, 1000);
   };
 

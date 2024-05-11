@@ -52,3 +52,13 @@
             gap: 0rem
         @include breakpoints.break_SM()
             grid-template-columns: repeat(auto-fit, 100% )
+    .cards_container
+        display: grid
+        width: 100%
+        margin: auto
+        justify-items: center
+        // grid-template-columns: 1fr 1fr 1fr 1fr
+        grid-template-columns: repeat(auto-fit, minmax(25rem,1fr))
+        grid-auto-rows: 30rem
+        gap: 2rem 0
+        flex-wrap: wrap

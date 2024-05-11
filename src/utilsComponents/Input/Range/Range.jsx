@@ -9,6 +9,7 @@ import "./Range.sass";
  * @property {Number} current_max
  * @property {Function} [callback=()=>()]
  * @property {Number} diff
+ * @property {Boolean} solo
  */
 
 /**
@@ -23,6 +24,7 @@ const RangeInput = (props) => {
     max: max_value = !props.max ? 100 : props.max,
     current_min = min_value,
     current_max = max_value,
+    solo = !props.solo ? false : props.solo,
     // diff,
     callback,
   } = props;
@@ -36,8 +38,7 @@ const RangeInput = (props) => {
     let value = e.target.value === "" ? min : e.target.value;
     if (checkDiff(value, maxValue)) {
       setMinValue(value);
-      let left_gap = min > 0 && value <= min ? getPercent(min, max).replace("%", "") : 0;
-      let percent_value = getPercent(value, max).replace("%", "") - left_gap + "%";
+      let percent_value = getPercent(value - min, max - min).replace("%", "") + "%";
       setLeftSlider(percent_value);
     }
   };
@@ -46,7 +47,7 @@ const RangeInput = (props) => {
     // && value <= max
     if (checkDiff(minValue, value)) {
       setMaxValue(value);
-      setRightSlider(getPercent(value, max));
+      setRightSlider(getPercent(value - min, max - min));
     }
   };
 
@@ -76,20 +77,28 @@ const RangeInput = (props) => {
             <input type="text" onChange={handleMinValue} value={minValue} name="" id="min" />
           </div>
           <div className="space"> </div>
-          <div className="block">
-            <label htmlFor="max">Max </label>
-            <input type="text" onChange={hanldeMaxValue} value={maxValue} name="" id="max" />
-          </div>
+          {solo ? (
+            <></>
+          ) : (
+            <div className="block">
+              <label htmlFor="max">Max </label>
+              <input type="text" onChange={hanldeMaxValue} value={maxValue} name="" id="max" />
+            </div>
+          )}
         </div>
 
         {/* //// */}
         <div className="input_slider_row">
           <div className="slider_line_b">
             <div className="slider_line" style={{ left: leftSlider }}></div>
-            <div className="slider_right" style={{ left: rightSlider }}></div>
+            {solo ? <> </> : <div className="slider_right" style={{ left: rightSlider }}></div>}
           </div>
           <input type="range" name="min_range" onChange={handleMinValue} min={min} max={max} id="min_range" value={minValue} />
-          <input type="range" name="max_range" onChange={hanldeMaxValue} min={min} max={max} id="max_range" value={maxValue} />
+          {solo ? (
+            <></>
+          ) : (
+            <input type="range" name="max_range" onChange={hanldeMaxValue} min={min} max={max} id="max_range" value={maxValue} />
+          )}
         </div>
       </div>
     </div>
@@ -105,7 +114,7 @@ const RangeInput = (props) => {
 
 const getPercent = (value, repere) => {
   let percent = ((value * 100) / repere).toFixed(0);
-  return percent + "%";
+  return (percent < 0 ? 0 : percent) + "%";
 };
 
 export default RangeInput;

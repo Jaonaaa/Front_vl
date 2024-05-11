@@ -8,24 +8,25 @@ import ContentContainer from "../ContentContainer/ContentContainer";
 import Input from "../../utilsComponents/Input/Input";
 import useForm from "../../hooks/useForm";
 import { alaivoGet, alaivoPost } from "../../utils/Alaivo";
+import HorizContainer from "../../utilsComponents/Container/HorizContainer/HorizContainer";
+import Card from "../../utilsComponents/Card/Card";
+import img from "../../assets/img/brume.jpg";
 import "./Home.sass";
+import { getRandomValue } from "../../utils/Uid";
 
 const Home = () => {
   const { formData, handleInputForm } = useForm();
+
   const submit = async (e) => {
     e.preventDefault();
     formData.time_ = formData.time + ":00.00+03:00";
     // formData.time = formData.time;
     //
-
     console.log(formData);
     let res = await alaivoPost("test/time", JSON.stringify(formData));
     console.log(res);
   };
-  const get = async (e) => {
-    let res = await alaivoGet("test");
-    console.log(res);
-  };
+
   return (
     <>
       <ContentContainer>
@@ -40,15 +41,33 @@ const Home = () => {
               variants={variantContainerStag}
               style={{ minHeight: "fit-content", justifyContent: "center" }}
             >
-              <PerspectiveBox />
+              <PerspectiveBox bubbleBg="red" />
               <PerspectiveBox bubbleBg="#9acbe4" />
               <PerspectiveBox bubbleBg="#9acbe4" />
-              <PerspectiveBox bubbleBg="#9acbe4" />
-              <form onSubmit={submit}>
-                <Input type="datetime-local" name="time" title="Times" onChange={handleInputForm} />
-                <button> Send</button>
-              </form>
-              <button onClick={get}>Get</button>
+            </motion.div>
+            <motion.div
+              className="row grid_row"
+              variants={variantContainerStag}
+              style={{ minHeight: "fit-content", justifyContent: "center" }}
+            >
+              <HorizContainer title={"Cards"}>
+                {/* <form onSubmit={submit}>
+                  <Input type="datetime-local" name="time" title="Times" onChange={handleInputForm} />
+                  <button> Send</button>
+                </form> */}
+                <div className="cards_container">
+                  {[...Array(6).keys()].map((c) => (
+                    <Card
+                      key={c}
+                      title={"Lorem Ispum"}
+                      imgSrc={img}
+                      value={getRandomValue(1, 100) + " $"}
+                      text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, corrupti esse, perferendis sunt soluta quidem quia dicta quisquam tenetur recusandae est ea."
+                      actions={[{ text: "Check it" }, { text: "Buy now", className: "btn-black" }]}
+                    />
+                  ))}
+                </div>
+              </HorizContainer>
             </motion.div>
           </motion.div>
         </div>

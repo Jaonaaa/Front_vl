@@ -77,7 +77,15 @@ const ComponentContainer = () => {
       </motion.div>
       {/* INPUT */}
       <motion.div className="component_box" variants={variantItem}>
-        <RangeInput callback={() => {}} min={50} />
+        <RangeInput
+          callback={(e) => {
+            // console.log(e);
+          }}
+          // solo
+          min={50}
+          max={100}
+          current_min={55}
+        />
         <div className="title_compo">Input Range</div>
       </motion.div>
       {/* LOADER */}

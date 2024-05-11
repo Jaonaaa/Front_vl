@@ -4,6 +4,7 @@ import ChatIcon from "../../assets/svg/ChatIcon";
 import HomeIcon from "../../assets/svg/HomeIcon";
 import OverviewIcon from "../../assets/svg/OverviewIcon";
 import SettingsIcon from "../../assets/svg/SettingsIcon";
+import { AiOutlineCompass } from "react-icons/ai";
 import ShopIcon from "../../assets/svg/ShopIcon";
 import ComponentIcon from "../../assets/svg/ComponentIcon";
 import Home from "../Home/Home";
@@ -12,6 +13,7 @@ import Table, { dataDefault } from "../../utilsComponents/Table/Table";
 import PDFBuilder from "../PDFBuilder/PDFBuilder";
 import ComponentContainer from "../ComponentContainer/ComponentContainer";
 import Graphs from "../Graphs/Graphs";
+import About from "../../pages/About/About";
 
 //Aza adino le "/" aloha path rehetra
 const linksNavData = [
@@ -25,6 +27,13 @@ const linksNavData = [
         label: "Home",
         icon: <HomeIcon />,
         page: <Home />,
+      },
+      {
+        type: "link",
+        linkTo: "/about",
+        label: "About",
+        icon: <AiOutlineCompass />,
+        page: <About />,
       },
       {
         type: "link_info",
