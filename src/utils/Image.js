@@ -16,3 +16,16 @@ export const getImage = async (node) => {
       });
   });
 };
+
+export const getBase64 = async (file) => {
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      resolve(reader.result.split(",")[1]);
+    };
+    reader.onerror = function (error) {
+      reject(error);
+    };
+  });
+};

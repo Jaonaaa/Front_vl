@@ -3,9 +3,16 @@ import Bg from "../../../assets/img/brume.jpg";
 import ArrowRight from "../../../assets/svg/ArrowRight";
 import LineSlide from "../../../utilsComponents/Container/LineSlide/LineSlide";
 import "./ActuSwiper.sass";
+const data = {
+  categorie: "Featured App",
+  title: "Lorem ipsnum",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  imgSrc: Bg,
+};
 
-const ActuSwiper = () => {
-  const [content, setContent] = useState([1, 2, 1, 4, 4, 4, 4]);
+const ActuSwiper = ({ contents = [data, data] }) => {
+  const [content, setContent] = useState(contents);
   const [percent, setPercent] = useState(0);
 
   const next = () => {
@@ -44,21 +51,17 @@ const ActuSwiper = () => {
       {content.map((c, key) => (
         <div className="block_actu" key={key} style={{ transform: `translateX(-${percent}%)` }}>
           <div className="actu_pic">
-            <img src={Bg} />
+            <img src={c.imgSrc} />
           </div>
           <div className="about">
             <LineSlide>
-              <div className="categorie">FEATURED APP</div>
+              <div className="categorie"> {c.categorie}</div>
             </LineSlide>
             <LineSlide>
-              <div className="title_about">Lorem, ipsum dolor sit amet consectetur</div>
+              <div className="title_about">{c.title}</div>
             </LineSlide>
             <LineSlide>
-              <div className="description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis et vero quibusdam explicabo ab
-                consectetur facilis. Soluta impedit nostrum libero, commodi quo voluptatem porro fugiat! Assumenda asperiores
-                saepe facere maxime.
-              </div>
+              <div className="description">{c.description}</div>
             </LineSlide>
           </div>
           <div className="overlay"></div>

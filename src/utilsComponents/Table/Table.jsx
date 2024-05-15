@@ -51,6 +51,11 @@ const Table = ({
     setDataRow(res);
   };
 
+  useEffect(() => {
+    setFetching(loadingContent);
+    setDataRow(body);
+  }, [loadingContent]);
+
   return (
     <div className="table_container">
       {headerOn && (
@@ -140,7 +145,13 @@ export const dataDefault = {
   classes: ["", "", "", "", ""],
   index: [0, 1, 2, 3, ["test", "po"]],
   body: [
-    { 0: "Arem ing elit.", 1: "P ing elit.", 2: "true", 3: "Lorem ing elit.", test: { po: "A" } },
+    {
+      0: "Arem ing elit.",
+      1: <div style={{ color: "red" }}>Lorem </div>,
+      2: "true",
+      3: "Lorem ing elit.",
+      test: { po: "A" },
+    },
     { 0: "Brem ing elit.", 1: "Lorem ing elit.", 2: "false", 3: "Lorem ing elit.", test: { po: "B" } },
     { 0: "Ssss ing elit.", 1: "Poo ing elit.", 2: "false", 3: "Lorem ing elit.", test: { po: "C" } },
     { 0: "Edd ing elit.", 1: "Lorem ing elit.", 2: "true", 3: "Lorem ing elit.", test: { po: "D" } },

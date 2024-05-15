@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import NavPage from "./pages/NavPage";
 import useAuth from "./hooks/useAuth";
 import "./App.sass";
+import SignAdmin from "./components/Sign/SignAdmin";
 
 function App() {
   useAuth();
@@ -20,6 +21,7 @@ function App() {
       </AnimatePresence>
       <NavPage key={"nav_page"}>
         <Route path="/sign" element={<Sign />} />
+        <Route path="/sign_admin" element={<SignAdmin />} />
       </NavPage>
     </div>
   );

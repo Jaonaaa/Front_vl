@@ -12,7 +12,8 @@ const useAuth = () => {
 
   const checkAuthentified = () => {
     const user = getUserPresp();
-    if (user === undefined) nav("/sign");
+    if (loc.pathname === "/sign_admin") return;
+    else if (user === undefined) nav("/sign");
   };
 
   return {};

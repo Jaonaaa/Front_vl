@@ -80,7 +80,7 @@ const Header = () => {
         )}
         <Indexation />
       </div>
-      <SearchBar dataFetched={data} handleData={handleData} setDataFetched={setData} urlToFetch={"test"} />
+      {/* <SearchBar dataFetched={data} handleData={handleData} setDataFetched={setData} urlToFetch={"test"} /> */}
       <div className="params">
         <UserParams />
       </div>

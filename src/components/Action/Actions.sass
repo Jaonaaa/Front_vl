@@ -1,0 +1,97 @@
+.actions_float_containers
+    display: flex
+    justify-content: center
+    align-items: center
+    position: fixed
+    right: 3rem
+    bottom: 5rem
+    width: 3.75rem
+    height: 3.75rem
+    border-radius: 50%
+    .container_sub
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 100%
+        height: 100%
+        position: relative
+        .bubble
+            display: flex
+            position: absolute
+            transform: translateY(-120%)
+            right: 0
+            top: 0
+            background: var(--secondary)
+            color: #fff
+            align-items: center
+            cursor: pointer
+            border-radius: 0.5rem
+            transition: all 0.2s ease-in-out
+            transform-origin: top
+            &:hover
+                transform: scale(0.95) translateY(var(--y)) !important
+            *
+                color: #fff
+            .text
+                display: flex
+                justify-content: center
+                align-items: center
+                white-space: nowrap
+                padding: 0 1rem
+                font-size: 0.88rem
+                height: 3.3rem
+            .icon
+                width: 3.75rem
+                height: 3.3rem
+                display: flex
+                justify-content: center
+                align-items: center
+            .full
+                padding: 0 1rem 0 0
+                margin-left: -0.5rem
+        .hidden
+            pointer-events: none
+            opacity: 0
+
+        .bubble_content
+            display: flex
+            align-items: center
+            cursor: pointer
+            justify-content: center
+            width: 100%
+            height: 100%
+            background: var(--secondary)
+            position: relative
+            transition: all 0.2s ease-in-out
+            border-radius: 50%
+            transform-origin: center
+            &:hover
+                background: var(--secondary-hovered)
+                transform: scale(0.95)
+            .text,.rotate
+                font-size: 1.2rem
+                display: flex
+                justify-content: center
+                transform-origin: center
+                transition: all 0.2s ease-in-out
+                align-items: center
+                color: #fff
+                svg
+                    font-size: 1.7rem
+                *
+                    color: #fff
+            .rotated
+                transform: rotate(45deg)
+.flex
+    width: fit-content
+    display: flex
+    align-items: center
+    height: 3.2rem
+    .container_sub
+        .bubble_content
+            border-radius: 0.4rem
+            padding: 0 1rem
+            .text
+                font-size: 0.85rem
+                svg
+                    font-size: 0.85rem

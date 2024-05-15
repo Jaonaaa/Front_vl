@@ -33,6 +33,17 @@ export const FormSignUpData = [
         fullWidth: true,
         title: "Your lastname",
       },
+      {
+        component: "select",
+        type: "",
+        name: "role",
+        fullWidth: true,
+        optionsType: [
+          { label: "Admin", value: "ADMIN" },
+          { label: "Client", value: "USER" },
+        ],
+        title: "Admin",
+      },
     ],
   },
 ];

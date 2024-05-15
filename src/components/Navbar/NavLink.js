@@ -6,17 +6,27 @@ import OverviewIcon from "../../assets/svg/OverviewIcon";
 import SettingsIcon from "../../assets/svg/SettingsIcon";
 import { AiOutlineCompass } from "react-icons/ai";
 import ShopIcon from "../../assets/svg/ShopIcon";
-import ComponentIcon from "../../assets/svg/ComponentIcon";
-import Home from "../Home/Home";
 import ContentContainer from "../ContentContainer/ContentContainer";
-import Table, { dataDefault } from "../../utilsComponents/Table/Table";
-import PDFBuilder from "../PDFBuilder/PDFBuilder";
-import ComponentContainer from "../ComponentContainer/ComponentContainer";
-import Graphs from "../Graphs/Graphs";
-import About from "../../pages/About/About";
+import { getUserPresp } from "../../hooks/useIdentity";
+import Work from "../../pages/Admin/Work/Work";
+import HomeClient from "../../pages/Client/Home/Home";
+import HomeAdmin from "../../pages/Admin/Home/Home";
+import Unit from "../../pages/Admin/Utilities/Unit/Unit";
+import Client from "../../pages/Admin/Client/Client";
+import ImportTM from "../../pages/Admin/Import/ImportTM";
+import WorkClient from "../../pages/Client/WorkClient/WorkClient";
+import DoPayement from "../../pages/Client/Payement/DoPayement/DoPayement";
+import Finition from "../../pages/Admin/Utilities/Finition/Finition";
+import BuildingType from "../../pages/Admin/Utilities/BuildinType/BuildingType";
+import WorkPredefined from "../../pages/Admin/Management/WorkPredefined/WorkPredefined";
+import ImportPayement from "../../pages/Admin/Import/ImportPayement";
+import Travaux from "../../pages/Admin/Work/Travaux";
+import ListFinition from "../../pages/Admin/Work/ListFinitions";
 
 //Aza adino le "/" aloha path rehetra
-const linksNavData = [
+let user = getUserPresp();
+
+let admin = [
   {
     type: "menu",
     menuLabel: "Dashboard",
@@ -26,108 +36,92 @@ const linksNavData = [
         linkTo: "/",
         label: "Home",
         icon: <HomeIcon />,
-        page: <Home />,
+        page: <HomeAdmin />,
       },
       {
         type: "link",
-        linkTo: "/about",
-        label: "About",
+        linkTo: "/devis",
+        label: "Devis",
         icon: <AiOutlineCompass />,
-        page: <About />,
-      },
-      {
-        type: "link_info",
-        linkTo: "/overview",
-        label: "Overview",
-        icon: <OverviewIcon />,
-        page: (
-          <ContentContainer>
-            <div className="inner">
-              <Table
-                {...dataDefault}
-                paginationOn={true}
-                pageCount={15}
-                rowCount={5}
-                callBackPagination={async (index) => {
-                  return new Promise((resolve, reject) => {
-                    let end = Math.round(Math.random() * dataDefault.body.length);
-                    setTimeout(() => {
-                      resolve([...dataDefault.body].splice(0, end));
-                    }, 1000);
-                  });
-                }}
-              />
-            </div>
-          </ContentContainer>
-        ),
-        info: 10,
+        page: <Work />,
       },
       {
         type: "link_list",
-        label: "Notification",
-        icon: <BellIcon />,
+        label: "Imports",
+        icon: <OverviewIcon />,
         sublinks: [
           {
-            label: "Example 1",
-            linkTo: "/test/example_1",
-            page: (
-              <ContentContainer>
-                <PDFBuilder />
-              </ContentContainer>
-            ),
+            label: "Travaux Maison",
+            linkTo: "/import/tm",
+            page: <ImportTM />,
           },
           {
-            label: "Example 2",
-            linkTo: "/test/example_2",
-            page: <ContentContainer />,
+            label: "Payement",
+            linkTo: "/import/payement",
+            page: <ImportPayement />,
           },
         ],
       },
-    ],
-  },
-  {
-    type: "menu",
-    menuLabel: "Main menu",
-    rows: [
       {
-        type: "link",
-        linkTo: "/components",
-        label: "Components",
-        icon: <ComponentIcon />,
-        page: (
-          <ContentContainer>
-            <ComponentContainer />
-          </ContentContainer>
-        ),
+        type: "link_list",
+        label: "Data",
+        icon: <OverviewIcon />,
+        sublinks: [
+          {
+            label: "Work by type",
+            linkTo: "/data/wk",
+            page: <Travaux />,
+          },
+          {
+            label: "Finition",
+            linkTo: "/data/finition",
+            page: <ListFinition />,
+          },
+        ],
       },
       {
         type: "link",
-        linkTo: "/something",
-        label: "Something very long",
-        icon: <ArchiveIcon />,
-        page: <></>,
-      },
-      {
-        type: "link_info",
-        linkTo: "/chat",
-        label: "Chat",
-        icon: <ChatIcon />,
-        info: 10,
-        page: (
-          <ContentContainer>
-            <Graphs />
-          </ContentContainer>
-        ),
+        linkTo: "/client",
+        label: "Customers",
+        icon: <AiOutlineCompass />,
+        page: <Client />,
       },
       {
         type: "link_list",
-        label: "Shop",
-        icon: <ShopIcon />,
+        label: "Management",
+        icon: <BellIcon />,
         sublinks: [
           {
-            label: "Example 11",
-            linkTo: "/example_11",
-            page: <ContentContainer />,
+            label: "Work predefined",
+            linkTo: "/management/work_predefined",
+            page: <WorkPredefined />,
+          },
+          // {
+          //   label: "Work details",
+          //   linkTo: "/management/work_details",
+          //   page: <WorkDetails />,
+          // },
+        ],
+      },
+      {
+        type: "link_list",
+        label: "Utilities",
+        icon: <BellIcon />,
+        sublinks: [
+          {
+            label: "Unit",
+            linkTo: "/utilities/unit",
+            page: <Unit />,
+          },
+          {
+            label: "Type of finition",
+            linkTo: "/utilities/finitions",
+            page: <Finition />,
+          },
+          {
+            label: "Type of building",
+            linkTo: "/utilities/types",
+            page: <BuildingType />,
           },
         ],
       },
@@ -145,6 +139,58 @@ const linksNavData = [
   },
 ];
 
-export const link_to_hide_nav = ["/settings", "/something", "/sign"];
+let client = [
+  {
+    type: "menu",
+    menuLabel: "My Menu",
+    rows: [
+      {
+        type: "link",
+        linkTo: "/",
+        label: "Home",
+        icon: <HomeIcon />,
+        page: <HomeClient />,
+      },
+      {
+        type: "link",
+        linkTo: "/works",
+        label: "My Works",
+        icon: <ArchiveIcon />,
+        page: <WorkClient />,
+      },
+      {
+        type: "link_list",
+        label: "Payement",
+        icon: <ShopIcon />,
+        sublinks: [
+          // {
+          //   label: "Active request",
+          //   linkTo: "/request/active",
+          //   page: <RequestActive />,
+          // },
+          {
+            label: "Do payement",
+            linkTo: "/payement/do",
+            page: <DoPayement />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "single",
+    row: {
+      type: "link",
+      linkTo: "/settings",
+      label: "Settings",
+      icon: <SettingsIcon />,
+      page: <ContentContainer />,
+    },
+  },
+];
+
+const linksNavData = user ? ((user.roles + "").toLowerCase() === "admin" ? admin : client) : [];
+
+export const link_to_hide_nav = ["/settings", "/something", "/sign", "/sign_admin"];
 
 export default linksNavData;

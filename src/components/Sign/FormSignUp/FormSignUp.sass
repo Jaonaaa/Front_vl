@@ -15,12 +15,15 @@
         @include breakpoints.break_MD()
             margin-bottom: 1rem
         svg
+            transform: scale(2)
             rect
                 fill: var(--primary)
             #Exclusion_1
                 fill: var(--primary)
             path
                 fill: var(--primary)
+            line
+                stroke: var(--primary)
     .title
         font-family: "Sora_SM"
         font-size: 2.2rem
@@ -74,6 +77,19 @@
                 cursor: pointer
                 transition: all 0.2s ease-in-out
                 font-weight: bolder
+        .drop_down_container
+            margin: 0.5rem auto 0.8rem auto
+            .drop_down
+                background: transparent
+                .option_drop_down
+                    height: 3rem
+            .title_select
+                font-size: 0.8rem
+                font-weight: none
+            .container_label
+                padding: 0.9rem 0 0.9rem 0.7rem
+                background: transparent
+                box-shadow: 0 0 0.1rem 0.05rem #a7a5a5d2
     .divider_form
         width: 90%
         margin-bottom: 1.5rem

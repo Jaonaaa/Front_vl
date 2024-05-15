@@ -15,3 +15,25 @@ export const getRandomValue = (minRange, maxRange) => {
 // Math.round() => 4.3 = 4 || 4.6 = 5
 // Math.ceil() => 4.3 = 5
 // Math.floor => 4.3 = 4
+export function getMonthName(monthNumber) {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  if (monthNumber >= 1 && monthNumber <= 12) {
+    return months[monthNumber - 1];
+  } else {
+    return monthNumber;
+  }
+}

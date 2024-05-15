@@ -123,6 +123,7 @@ const useIdentity = (addNotifs) => {
     )
       .then((response) => {
         console.log(response);
+        if (response.status === "error") throw response.message;
         setUpStorageConnect(response);
         addNotifs("ok", "Connected successfully", 800);
         setTimeout(() => {
@@ -131,6 +132,31 @@ const useIdentity = (addNotifs) => {
       })
       .catch(() => {
         addNotifs("error", "Email or password not correct.");
+      });
+  };
+
+  const signInClient = (formData, to, timer = 0) => {
+    alaivoPost(
+      authenticateURL + "/client",
+      JSON.stringify(formData),
+      {
+        headers: {
+          ...contentTypeHeaders,
+        },
+      },
+      true
+    )
+      .then((response) => {
+        console.log(response);
+        if (response.status === "error") throw response.message;
+        setUpStorageConnect(response);
+        addNotifs("ok", "Connected successfully", 800);
+        setTimeout(() => {
+          if (to) document.location = to;
+        }, timer);
+      })
+      .catch((e) => {
+        addNotifs("error", e);
       });
   };
 
@@ -147,12 +173,36 @@ const useIdentity = (addNotifs) => {
     )
       .then((response) => {
         console.log(response);
+        if (response.status === "error") throw response.message;
         setUpStorageConnect(response);
         addNotifs("ok", "Connected successfully", 800);
         if (to) document.location = to;
       })
       .catch((error) => {
-        console.log(error);
+        addNotifs("error", error);
+      });
+  };
+
+  const signUpClient = (formData, to) => {
+    alaivoPost(
+      registerURL + "/client",
+      JSON.stringify(formData),
+      {
+        headers: {
+          ...contentTypeHeaders,
+        },
+      },
+      true
+    )
+      .then((response) => {
+        if (response.status === "error") throw response.message;
+        console.log(response);
+        setUpStorageConnect(response);
+        addNotifs("ok", "Connected successfully", 800);
+        if (to) document.location = to;
+      })
+      .catch((error) => {
+        addNotifs("error", error);
       });
   };
 
@@ -175,6 +225,8 @@ const useIdentity = (addNotifs) => {
     checkTokenStatus,
     disableRefreshToken,
     setUpStorageConnect,
+    signInClient,
+    signUpClient,
   };
 };
 

@@ -8,6 +8,7 @@ const RowInput = ({
   required = false,
   title = "",
   type = "text",
+  pattern = null,
   onChange = () => {},
   fullWidth,
 }) => {
@@ -39,6 +40,7 @@ const RowInput = ({
           onBlur={handleBlurState}
           id={id}
           name={name}
+          pattern={pattern}
           defaultValue={value}
           onChange={(e) => {
             onChange(e);

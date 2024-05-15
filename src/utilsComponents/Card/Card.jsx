@@ -18,7 +18,7 @@ const Card = ({ imgSrc = null, title, text = "", value = "", actions = [], class
         </div>
         <div className="bottom">
           {actions.map((action, i) => (
-            <Button {...action} />
+            <Button {...action} key={i} />
           ))}
         </div>
       </div>

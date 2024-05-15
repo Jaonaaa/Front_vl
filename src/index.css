@@ -24,10 +24,10 @@
 }
 
 :root {
-  --primary: #e50242;
-  --primary-hovered: #b60638;
-  --secondary: #58d85a;
-  --secondary-hovered: #1c8f1e;
+  --primary: #E79F58;
+  --primary-hovered: #c5813d;
+  --secondary: #0F171E;
+  --secondary-hovered: #040709;
   --box-shadow-color: #f2f2f2;
   --bg-color: #fff;
   --bg-color-body: #f4f4f4;
@@ -41,10 +41,10 @@
 }
 
 .light_theme {
-  --primary: #674dee;
-  --primary-hovered: #4530ae;
-  --secondary: #f97777;
-  --secondary-hovered: #c44e4e;
+  --primary: #E97A5E;
+  --primary-hovered: #E97A5E;
+  --secondary: #112C48;
+  --secondary-hovered: #112C48;
   --box-shadow-color: #f2f2f2;
   --bg-color: #fff;
   --bg-color-body: #f4f4f4;
@@ -58,8 +58,8 @@
 }
 
 .dark_theme {
-  --primary: #16a4c3;
-  --primary-hovered: #0d809a;
+  --primary: #915323;
+  --primary-hovered: #673611;
   --secondary: #ada62a;
   --secondary-hovered: #777215;
   --box-shadow-color: #3e3e3e;
@@ -132,4 +132,12 @@ button:hover {
   transform: scale(0.98);
   background: var(--primary-hovered);
 
+}
+
+button svg {
+  color: #fff;
+}
+
+button * {
+  color: #fff;
 }

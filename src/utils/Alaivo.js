@@ -1,4 +1,5 @@
 import { getHeaderAuth, getHeaderAuthJWT } from "../hooks/useIdentity";
+import { getUid } from "./Uid";
 
 export const URL = "http://localhost:8089/";
 
@@ -72,6 +73,33 @@ export const alaivoPost = (url = "", data, options, noAuth = false) => {
     })
       .then((response) => response.json())
       .then((responseData) => {
+        resolve(responseData);
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+export const alaivoGetFile = async (url = "", options, noAuth = false, fileName = "file_" + getUid(), extension) => {
+  let auth = !noAuth ? getHeaderAuthJWT() : getHeaderAuth();
+
+  return new Promise((resolve, reject) => {
+    fetch(rebuildURL(url), {
+      method: "GET",
+      ...auth,
+      ...options,
+    })
+      .then(async (response) => {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName + "." + extension);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+        return true;
+      })
+      .then(async (responseData) => {
         resolve(responseData);
       })
       .catch((error) => reject(error));

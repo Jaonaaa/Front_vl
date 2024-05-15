@@ -41,7 +41,7 @@ const UserParams = () => {
             )}
             <div className="blank"></div>
             <div className="user_about">
-              <div className="name">{user ? user.firstname + " " + user.lastname : " Test Prime"}</div>
+              <div className="name">{user ? user.firstname + " " + user.lastname + " / " + user.roles : " Test Prime"}</div>
             </div>
           </div>
           <div

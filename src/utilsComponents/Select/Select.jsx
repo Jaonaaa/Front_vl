@@ -19,8 +19,8 @@ const Select = ({
   const longContent = useRef(null);
   const [openOptions, setOpenOptions] = useState(false);
 
-  const heightNecessary = 16 * 2.6 * optionsType.length;
-  const maxHeight = 16 * 2.6 * 5;
+  const heightNecessary = 14.2 * 3 * optionsType.length;
+  const maxHeight = 14.2 * 3 * 5;
 
   const [widthNecessary, setWidthNecessary] = useState(0);
   const longestText = getMaxLenghtText(optionsType);

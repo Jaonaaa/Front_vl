@@ -15,7 +15,7 @@ const HeadNav = ({ miniNav, switchNav }) => {
           <div className="icon" onClick={handleLogo}>
             <LogoDefault />
           </div>
-          <div className="text">Untilted UI</div>
+          <div className="text">Constructor</div>
         </div>
         {!miniNav && (
           <div className="btn_small_nav" onClick={switchNav}>

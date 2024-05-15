@@ -17,7 +17,12 @@ const FormSignIn = ({ handleSign = () => {} }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    signIn(formData, "/", 1000);
+    let data = {
+      ...formData,
+      email: formData.email.trim(),
+      password: formData.password.trim(),
+    };
+    signIn(data, "/", 1000);
   };
   return (
     <div className="sign_in_form">
@@ -26,7 +31,7 @@ const FormSignIn = ({ handleSign = () => {} }) => {
         <LogoDefault />
       </div>
       <div className="title">Sign in</div>
-      <div className="subtitle">Let's dive with us in this incredible journey.</div>
+      <div className="subtitle">Let's build up with us in this incredible journey.</div>
       <form action="" method="post" onSubmit={handleSubmit}>
         <RowInput title="Email" type="email" id="email" name="email" fullWidth onChange={handleInputForm} />
         <RowInput title="Password" type="password" id="password" name="password" fullWidth onChange={handleInputForm} />
@@ -35,15 +40,17 @@ const FormSignIn = ({ handleSign = () => {} }) => {
         </div>
 
         <div className="sign_up_link">
-          <div className="text">Don't have an account ?</div>
-          <div className="link" onClick={handleSign}>
-            Register here.
-          </div>
+          {/* <div className="text"> Want to log as a customer ?</div>
+          <div
+            className="link"
+            onClick={() => {
+              handleSign("client-login");
+            }}
+          >
+            Go to customer .
+          </div> */}
         </div>
       </form>
-      {/* <Divider text={"OR"} className={"divider_form"} />
-      <ButtonLogo icon={<GoogleIcon />} text={"Continue with Google"} /> */}
-      {/* <ButtonLogo icon={<AppleIcon />} text={"Continue with Apple"} /> */}
     </div>
   );
 };

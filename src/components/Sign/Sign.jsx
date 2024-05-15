@@ -6,6 +6,7 @@ import { getUserPresp } from "../../hooks/useIdentity";
 import { useNavigate } from "react-router-dom";
 import { alaivoGet } from "../../utils/Alaivo";
 import "./Sign.sass";
+import FormSignInClient from "./FormSignIn/FormSignInClient";
 
 const loginVariants = {
   initial: {
@@ -30,20 +31,21 @@ const loginVariants = {
 };
 
 const Sign = () => {
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState("client-login");
   const nav = useNavigate();
 
   useEffect(() => {
     if (getUserPresp() !== undefined) nav("/");
   }, []);
 
-  const handleSign = () => {
-    setLogin(!login);
+  const handleSign = (log) => {
+    setLogin(log);
   };
 
   return (
     <motion.div id="sign_container" variants={loginVariants} initial="initial" animate="animate" exit="exit">
-      {login ? <FormSignIn handleSign={handleSign} /> : <FormSignUp handleSign={handleSign} />}
+      {login === "client-login" && <FormSignInClient handleSign={handleSign} />}
+      {/* {login === "admin-login" && <FormSignIn handleSign={handleSign} />} */}
     </motion.div>
   );
 };

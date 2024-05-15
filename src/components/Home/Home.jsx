@@ -7,12 +7,9 @@ import PerspectiveBox from "./PerspectiveBox/PerspectiveBox";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import Input from "../../utilsComponents/Input/Input";
 import useForm from "../../hooks/useForm";
-import { alaivoGet, alaivoPost } from "../../utils/Alaivo";
-import HorizContainer from "../../utilsComponents/Container/HorizContainer/HorizContainer";
-import Card from "../../utilsComponents/Card/Card";
-import img from "../../assets/img/brume.jpg";
+import { alaivoGet, alaivoGetFile, alaivoPost } from "../../utils/Alaivo";
+i;
 import "./Home.sass";
-import { getRandomValue } from "../../utils/Uid";
 
 const Home = () => {
   const { formData, handleInputForm } = useForm();
@@ -50,24 +47,16 @@ const Home = () => {
               variants={variantContainerStag}
               style={{ minHeight: "fit-content", justifyContent: "center" }}
             >
-              <HorizContainer title={"Cards"}>
-                {/* <form onSubmit={submit}>
+              {/* <Button
+                  text="Get file"
+                  onClick={async () => {
+                    // let res = alaivoGetFile("test/download/test.xlsx", null, false, "test", "xlsx");
+                  }}
+                /> */}
+              {/* <form onSubmit={submit}>
                   <Input type="datetime-local" name="time" title="Times" onChange={handleInputForm} />
                   <button> Send</button>
                 </form> */}
-                <div className="cards_container">
-                  {[...Array(6).keys()].map((c) => (
-                    <Card
-                      key={c}
-                      title={"Lorem Ispum"}
-                      imgSrc={img}
-                      value={getRandomValue(1, 100) + " $"}
-                      text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, corrupti esse, perferendis sunt soluta quidem quia dicta quisquam tenetur recusandae est ea."
-                      actions={[{ text: "Check it" }, { text: "Buy now", className: "btn-black" }]}
-                    />
-                  ))}
-                </div>
-              </HorizContainer>
             </motion.div>
           </motion.div>
         </div>

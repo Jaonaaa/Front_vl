@@ -21,7 +21,7 @@ export const getMaxLenghtText = (optionsType) => {
 
 export const swapToDefaultValue = (optionsType = [], defaultValue = undefined, defaultReturn = { value: "", label: "" }) => {
   if (defaultValue === undefined && optionsType.length > 0) return optionsType[0];
-  let indexSelected = optionsType.findIndex((option) => JSON.stringify(option) === JSON.stringify(defaultValue));
+  let indexSelected = optionsType.findIndex((option) => JSON.stringify(option.value) === JSON.stringify(defaultValue));
   return optionsType[indexSelected] || defaultReturn;
 };
 
