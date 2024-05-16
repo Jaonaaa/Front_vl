@@ -128,7 +128,7 @@ const PaginationSlider = ({
     handleSpaced();
     if (activePage === index) callBackPagination(index);
     setActivePage(index);
-  }, [index]);
+  }, [index, pageCount]);
 
   const Blocks = ({ indexes }) => {
     return (

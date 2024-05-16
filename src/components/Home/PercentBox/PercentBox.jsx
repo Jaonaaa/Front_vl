@@ -13,7 +13,9 @@ const PercentBox = ({
   onClick = () => {},
 }) => {
   return (
-    <div className="percent_container">
+    <div
+      className={`percent_container ${+getPercentValue(value, max) < 50 ? "red" : +getPercentValue(value, max) === 50 ? "" : "green"}`}
+    >
       <div className="top">
         <div className="title">{title}</div>
         <div className="btn_params" onClick={onClick}>
@@ -50,6 +52,19 @@ const getPercent = (value, repere) => {
   if (value == 0 && repere == 0) return 100 + "%";
   let percent = ((value * 100) / repere).toFixed(2);
   return (percent < 0 ? 0 : percent) + "%";
+};
+
+/**
+ *
+ * @param {Number} value
+ * @param {Number} repere
+ * @returns
+ */
+
+const getPercentValue = (value, repere) => {
+  if (value == 0 && repere == 0) return 100 + "%";
+  let percent = ((value * 100) / repere).toFixed(2);
+  return percent < 0 ? 0 : percent;
 };
 
 export default PercentBox;

@@ -10,13 +10,13 @@ import { styles } from "./style";
 import logo from "../../../assets/img/logo.png";
 import CustomChart from "../../../utilsComponents/Chart/CustomChart";
 import { getImage } from "../../../utils/Image";
-import { formatNumber } from "../../../utils/Format";
+import { formatNumber, formatTimestamp } from "../../../utils/Format";
 
 Font.register({ family: "Poppins", fonts: [{ src: Poppins }, { src: SoraSM, fontWeight: "bold" }] });
 
 // Create styles
 
-const PDFDevis = ({ data, pdfName = "devis.pdf", total_devis = 0, devis = null }) => {
+const PDFDevis = ({ data, pdfName = "devis.pdf", total_devis = 0, devis = null, payements = [] }) => {
   const [showPDF, setShowPDF] = useState(false);
   const handlePdfView = () => {
     setShowPDF(!showPDF);
@@ -37,7 +37,9 @@ const PDFDevis = ({ data, pdfName = "devis.pdf", total_devis = 0, devis = null }
   return (
     <>
       <PDFDownloadLink
-        document={<MyDocument devis={devis} logo={logo} data={data} total={total()} total_before_finition={total2()} />}
+        document={
+          <MyDocument devis={devis} logo={logo} data={data} total={total()} payements={payements} total_before_finition={total2()} />
+        }
         fileName={pdfName}
       >
         {({ blob, url, loading, error }) => (loading ? <Loader /> : <button> Export </button>)}
@@ -51,7 +53,14 @@ const PDFDevis = ({ data, pdfName = "devis.pdf", total_devis = 0, devis = null }
           <Modal closer={handlePdfView}>
             <div className="container_pdf" style={{ height: "85vh", width: "35rem" }}>
               <PDFViewer style={{ width: "100%", height: "93%", backgroundColor: "transparent" }} showToolbar={false}>
-                <MyDocument devis={devis} logo={logo} data={data} total={total()} total_before_finition={total2()} />
+                <MyDocument
+                  devis={devis}
+                  logo={logo}
+                  data={data}
+                  total={total()}
+                  payements={payements}
+                  total_before_finition={total2()}
+                />
               </PDFViewer>
             </div>
           </Modal>
@@ -62,54 +71,106 @@ const PDFDevis = ({ data, pdfName = "devis.pdf", total_devis = 0, devis = null }
 };
 
 // Create Document Component
-const MyDocument = ({ logo, data, total = 0, devis, total_before_finition = 0 }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View
-        style={{
-          width: "100%",
-          margin: "25px 0px 20px 0px",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View style={{ width: "8%" }}>{logo ? <Image src={logo} /> : null}</View>
-        <Text> Constructor </Text>
-      </View>
+const MyDocument = ({ logo, data, total = 0, devis, total_before_finition = 0, payements = [] }) => {
+  const totalPayement = () => {
+    let total = 0;
+    for (let i = 0; i < payements.length; i++) {
+      total += +payements[i].amount;
+    }
+    return total;
+  };
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View
+          style={{
+            width: "100%",
+            margin: "25px 0px 20px 0px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View style={{ width: "8%" }}>{logo ? <Image src={logo} /> : null}</View>
+          <Text> Constructor </Text>
+        </View>
 
-      <TablePdf {...data} />
-      <View
-        style={{
-          width: "100%",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-          display: "flex",
-          flexDirection: "row",
-          marginBottom: "10px",
-        }}
-      >
-        <View style={{ marginLeft: "30px", flexDirection: "row", fontSize: "12px" }}></View>
-        <View style={{ display: "flex", flexDirection: "row", marginRight: "40px", alignItems: "center" }}>
-          <Text style={{ fontSize: "12px", marginRight: "10px", marginTop: "0.2px" }}> Total sans finition : </Text>
-          <Text> {formatNumber(total_before_finition)} Ar </Text>
+        <TablePdf {...data} />
+        <View
+          style={{
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            display: "flex",
+            flexDirection: "row",
+            marginBottom: "10px",
+          }}
+        >
+          <View style={{ marginLeft: "30px", flexDirection: "row", fontSize: "12px" }}>
+            <View style={{ marginLeft: "0px", flexDirection: "row", fontSize: "12px" }}>
+              <Text> Type : </Text>
+              <Text style={{ margin: "2px 5px 0 0 ", fontWeight: "bold" }}>{devis.buildingTypeLabel}</Text>
+            </View>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row", marginRight: "40px", alignItems: "center" }}>
+            <Text style={{ fontSize: "12px", marginRight: "10px", marginTop: "0.2px" }}> Total sans finition : </Text>
+            <Text> {formatNumber(total_before_finition)} Ar </Text>
+          </View>
         </View>
-      </View>
-      <View style={{ width: "100%", justifyContent: "space-between", alignItems: "flex-end", display: "flex", flexDirection: "row" }}>
-        <View style={{ marginLeft: "30px", flexDirection: "row", fontSize: "12px" }}>
-          <Text> Finition : </Text>
-          <Text style={{ margin: "2px 5px 0 10px ", fontWeight: "bold" }}>{devis.buildingFinitionLabel}</Text>
-          <Text> {devis.buildingFinitionPercent}%</Text>
+        <View
+          style={{
+            width: "100%",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+            alignItems: "flex-end",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <View style={{ marginLeft: "30px", flexDirection: "row", fontSize: "12px" }}>
+            <Text> Finition : </Text>
+            <Text style={{ margin: "2px 5px 0 10px ", fontWeight: "bold" }}>{devis.buildingFinitionLabel}</Text>
+            <Text> {devis.buildingFinitionPercent}%</Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row", marginRight: "40px", alignItems: "center" }}>
+            <Text style={{ fontSize: "12px", marginRight: "10px", marginTop: "0.2px" }}> Total : </Text>
+            <Text> {formatNumber(total)} Ar </Text>
+          </View>
         </View>
-        <View style={{ display: "flex", flexDirection: "row", marginRight: "40px", alignItems: "center" }}>
-          <Text style={{ fontSize: "12px", marginRight: "10px", marginTop: "0.2px" }}> Total : </Text>
-          <Text> {formatNumber(total)} Ar </Text>
+        <View style={{ marginLeft: "20px", marginBottom: "20px", marginTop: "20px" }}>
+          <Text> Vos paiements : </Text>
         </View>
-      </View>
-    </Page>
-  </Document>
-);
+        {payements.map((pay, i) => (
+          <View
+            style={{
+              display: "flex",
+              fontSize: "10px",
+              margin: "5px auto",
+              height: "20px",
+              display: "flex",
+              flexDirection: "row",
+              width: "90%",
+
+              textAlign: "center",
+            }}
+            key={i}
+          >
+            <Text> Payement </Text>
+            <Text style={{ width: "100px" }}> Ref : {pay.refPaiement} </Text>
+            <Text style={{ marginLeft: "30px", width: "100px" }}> Amount : {pay.amount} Ar</Text>
+            <Text style={{ marginLeft: "30px" }}> Le {formatTimestamp(pay.payement_time)} </Text>
+          </View>
+        ))}
+
+        <View style={{ width: "100%", justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", marginTop: "20px" }}>
+          <Text> Total payement : </Text>
+          <Text style={{ marginRight: "20px" }}> {formatNumber(totalPayement())} Ar </Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 const TablePdf = ({ body = [], index = [], titles = [] }) => {
   const lengths = getColumnLength(index, titles, body);

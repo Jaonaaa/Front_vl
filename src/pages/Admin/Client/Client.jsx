@@ -6,7 +6,7 @@ import { alaivoGet } from "../../../utils/Alaivo";
 export const dataDefault = {
   titles: ["Numero", "Role", "Qt devis"],
   classes: ["", ""],
-  index: ["numero", "roles", ""],
+  index: ["numero", "roles", "devis_count"],
   body: [],
 };
 

@@ -31,7 +31,7 @@ const Table = ({
   loadingContent = false,
 }) => {
   const [fetching, setFetching] = useState(loadingContent);
-  const [pageCountState] = useState(pageCount);
+  const [pageCountState, setPageCount] = useState(pageCount);
   const [dataRow, setDataRow] = useState(body);
   const [activeIndexPage, setActiveIndexPage] = useState(0);
   const [activeSort, setActiveSort] = useState();
@@ -55,6 +55,11 @@ const Table = ({
     setFetching(loadingContent);
     setDataRow(body);
   }, [loadingContent]);
+
+  useEffect(() => {
+    console.log("ppoo" + pageCount);
+    setPageCount(pageCount);
+  }, [pageCount]);
 
   return (
     <div className="table_container">

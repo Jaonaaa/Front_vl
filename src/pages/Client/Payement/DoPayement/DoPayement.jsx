@@ -27,6 +27,7 @@ const DoPayemnt = () => {
       ...formData,
       payement_time: formData.payement_time + ":00.0+03:00",
       devis: devisSelected,
+      id_devis: devisSelected.id,
     };
     let res = await alaivoPost("payement", JSON.stringify(data), null, false);
     addNotifs(res.status, res.message);

@@ -9,23 +9,22 @@ import { getUserPresp } from "../../../hooks/useIdentity";
 import BannerImg from "../../../assets/img/AdminBanner.png";
 
 import { useNavigate } from "react-router-dom";
-import "./Home.sass";
 import { bannersNews } from "./Banners";
-import { alaivoGet } from "../../../utils/Alaivo";
+import { alaivoGet, alaivoGetFile } from "../../../utils/Alaivo";
 import CustomChart from "../../../utilsComponents/Chart/CustomChart";
 import Select from "../../../utilsComponents/Select/Select";
 import useForm from "../../../hooks/useForm";
 import HorizContainer from "../../../utilsComponents/Container/HorizContainer/HorizContainer";
 import { getMonthName } from "../../../utils/Uid";
 import { formatNumber } from "../../../utils/Format";
+import "./Home.sass";
 
 const example = {
   labels: ["0000", "0000", "0000", "0000", "0000"],
   datasets: [
     {
       label: "Devis amount",
-      backgroundColor: ["rgba(75, 192, 192, 0.2)", "#f49090a1", "#2e99a099", "#018a00d9", "#e97123a1"],
-      borderColor: ["rgba(75, 192, 192, 0.2)", "#f49090a1", "#2e99a099", "#018a00d9", "#e97123a1"],
+      backgroundColor: ["#e97a5e"],
       borderWidth: 1,
       data: [0, 0, 0, 0, 0],
     },
@@ -67,13 +66,13 @@ const HomeAdmin = () => {
   const getDataGraph = async (categorie) => {
     let res = await alaivoGet("devis/by/month/" + categorie, null, false);
     console.log(res);
+    /// eto raha anampy anleh date
     let data = {
       labels: res.data.labels.map((label) => getMonthName(label)),
       datasets: [
         {
           label: "Devis amount",
-          backgroundColor: ["rgba(75, 192, 192, 0.2)", "#f49090a1", "#2e99a099", "#018a00d9", "#e97123a1"],
-          borderColor: ["rgba(75, 192, 192, 0.2)", "#f49090a1", "#2e99a099", "#018a00d9", "#e97123a1"],
+          backgroundColor: ["#e97a5e"],
           borderWidth: 1,
           data: res.data.values.map((val) => +val),
         },
@@ -86,6 +85,8 @@ const HomeAdmin = () => {
     getTotalDevise();
     getTotalPayement();
     getAllYearDevis();
+
+    // alaivoGetFile("works/csv", null, false, "test", "csv");
   }, []);
 
   return (
@@ -121,7 +122,7 @@ const HomeAdmin = () => {
               bubbleBg="red"
               title_box="Amount total payement"
               value=" XX "
-              valueBox={formatNumber(totalPayement, 3) + " Ar"}
+              valueBox={formatNumber(totalPayement, 2) + " Ar"}
             />
           </motion.div>
           <motion.div
@@ -130,7 +131,7 @@ const HomeAdmin = () => {
             style={{ minHeight: "fit-content", justifyContent: "center" }}
           >
             <HorizContainer title={"Histogramme devis"}>
-              <div className="Graphics" style={{ width: "50%", margin: "auto", flexDirection: "column", alignItems: "flex-end" }}>
+              <div className="Graphics" style={{ minWidth: "50%", margin: "auto", flexDirection: "column", alignItems: "flex-end" }}>
                 <div
                   className="filter"
                   style={{ display: "flex", marginLeft: "auto", marginBottom: "1.5rem", justifyContent: "flex-end" }}
@@ -144,14 +145,15 @@ const HomeAdmin = () => {
                     optionsType={filterTimeLabel}
                   />
                 </div>
-
-                <CustomChart
-                  datasets={dataGraph.datasets}
-                  type="bar"
-                  labels={dataGraph.labels}
-                  title="Amount of devis"
-                  positionTitle="top"
-                />
+                <div className="kkk" style={{ width: "50vw" }}>
+                  <CustomChart
+                    datasets={dataGraph.datasets}
+                    type="bar"
+                    labels={dataGraph.labels}
+                    title="Amount of devis"
+                    positionTitle="top"
+                  />
+                </div>
               </div>
             </HorizContainer>
           </motion.div>

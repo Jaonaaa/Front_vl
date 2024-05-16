@@ -47,7 +47,12 @@ const WorkClient = () => {
       begin: formatTimestamp(row.begin_date),
       end: formatTimestamp(row.end_date),
       export: (
-        <PDFDevis data={{ ...dataPDF, body: formatDataPDF(row.devisSetDetails, [], 0) }} devis={row} total_devis={row.total_price} />
+        <PDFDevis
+          data={{ ...dataPDF, body: formatDataPDF(row.devisSetDetails, [], 0) }}
+          devis={row}
+          total_devis={row.total_price}
+          payements={row.my_payements}
+        />
       ),
     }));
 
@@ -65,7 +70,7 @@ const WorkClient = () => {
         unite: rows_[i].unit,
         quantite: rows_[i].quantity,
         pu: rows_[i].pu,
-        total: total === 0 ? "" : +total + " Ar",
+        total: total === 0 ? "" : formatNumber((+total).toFixed(2)) + " Ar",
       };
       returnData = [...returnData, new_data];
       if (rows_[i].childDevisSetDetails.length > 0) {

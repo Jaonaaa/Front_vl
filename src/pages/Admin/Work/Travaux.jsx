@@ -26,12 +26,17 @@ const Travaux = () => {
   const [loading, setLoading] = useState(true);
   const [units, setUnits] = useState([]);
 
+  const [pageCount, setPageCount] = useState(1);
+  const pages__ = 8;
+
   const fetchData = async () => {
     setLoading(true);
     let res = await alaivoGet("worksPredefinedBy", null, false);
+    let pages = await alaivoGet("worksPredefinedBy/page/" + pages__, null, false);
+    setPageCount(pages.data);
+
     let units_ = await alaivoGet("unit", null, false);
     setUnits(units_.data);
-
     let data = res.data.map((row) => ({
       ...row,
       type_travaux: row.label,
@@ -41,7 +46,6 @@ const Travaux = () => {
       quantite: row.worksInDevisDetails.quantity,
       modify: <ModifyForm data={row} units={units_.data} />,
     }));
-
     setLoading(false);
     setDataBody({ ...dataDefault, body: data });
   };
@@ -53,7 +57,30 @@ const Travaux = () => {
   return (
     <ContentContainer>
       <div className="inner">
-        <Table {...dataBody} headerOn={{ title: "List of the Works" }} rowCount={10} loadingContent={loading} />
+        <Table
+          {...dataBody}
+          headerOn={{ title: "List of the Works" }}
+          rowCount={8}
+          loadingContent={loading}
+          paginationOn={true}
+          pageCount={pageCount}
+          callBackPagination={async (index) => {
+            return new Promise(async (resolve, reject) => {
+              let res = await alaivoGet("worksPredefinedBy/" + index + "/count/" + pages__, null, false);
+              let units_ = await alaivoGet("unit", null, false);
+              let data = res.data.map((row) => ({
+                ...row,
+                type_travaux: row.label,
+                building_label: row.buildingType.label,
+                unite: row.worksInDevisDetails.unit.label,
+                pu: formatNumber(row.worksInDevisDetails.pu) + " Ar",
+                quantite: row.worksInDevisDetails.quantity,
+                modify: <ModifyForm data={row} units={units_.data} />,
+              }));
+              resolve(data);
+            });
+          }}
+        />
       </div>
     </ContentContainer>
   );

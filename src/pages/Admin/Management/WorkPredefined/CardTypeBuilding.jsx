@@ -10,6 +10,7 @@ const CardTypeBuilding = ({
   childDescriptions = [{ description: "Jolie" }],
   className = "",
   index,
+  surface = 0,
   price = "Not price yet",
   onClick = () => {},
 }) => {
@@ -28,6 +29,12 @@ const CardTypeBuilding = ({
         <div className="label"> {formatNumber(+price)} Ar </div>
         <div className="row_little">
           <div className="label_time"> {duration} days</div>
+        </div>
+      </div>
+
+      <div className="row_label surface">
+        <div className="row_little">
+          <div className="label_time"> {formatNumber(+surface)} m2 </div>
         </div>
       </div>
 
